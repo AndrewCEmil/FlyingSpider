@@ -3,15 +3,33 @@ using System.Collections;
 
 [RequireComponent(typeof(Collider))]
 public class CubeController : MonoBehaviour, ICardboardGazeResponder {
-	private Vector3 startingPosition;
+	public GameObject player;
+
+	private Rigidbody playerRb;
+	private bool isLinked;
+	private bool isGazedAt;
 
 	void Start() {
-		startingPosition = transform.localPosition;
 		SetGazedAt(false);
+		isLinked = false;
+		playerRb = player.GetComponent<Rigidbody> ();
+	}
+
+	public void Update() {
+		if (isLinked) {
+			Vector3 velocityAdd = (transform.position - player.transform.position).normalized / 10;
+			if (velocityAdd.y > 0) {
+				velocityAdd.y += .5f;
+			}
+			playerRb.velocity += velocityAdd;
+		}
 	}
 
 	public void SetGazedAt(bool gazedAt) {
-		GetComponent<Renderer>().material.color = gazedAt ? Color.green : Color.red;
+		if (!isLinked) {
+			GetComponent<Renderer> ().material.color = gazedAt ? Color.green : Color.red;
+			isGazedAt = gazedAt;
+		}
 	}
 
 	#region ICardboardGazeResponder implementation
@@ -31,8 +49,18 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	// Called when the Cardboard trigger is used, between OnGazeEnter
 	/// and OnGazeExit.
 	public void OnGazeTrigger() {
-		GetComponent<Renderer> ().material.color = Color.blue;
+		createLink ();
 	}
 
 	#endregion
+
+	private void createLink() {
+		isLinked = true;
+		GetComponent<Renderer> ().material.color = Color.blue;
+	}
+
+	private void destroyLink() {
+		isLinked = false;
+		SetGazedAt (isGazedAt);
+	}
 }
