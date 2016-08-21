@@ -5,30 +5,52 @@ using System.Collections;
 public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	public GameObject player;
 
-	private Rigidbody playerRb;
+	private PlayerController playerController;
 	private bool isLinked;
 	private bool isGazedAt;
 
 	void Start() {
 		SetGazedAt(false);
-		isLinked = false;
-		playerRb = player.GetComponent<Rigidbody> ();
+		SetLinked (false);
+		playerController = player.GetComponent<PlayerController> ();
 	}
 
 	public void Update() {
-		if (isLinked) {
-			Vector3 velocityAdd = (transform.position - player.transform.position).normalized / 10;
-			if (velocityAdd.y > 0) {
-				velocityAdd.y += .5f;
-			}
-			playerRb.velocity += velocityAdd;
-		}
 	}
 
 	public void SetGazedAt(bool gazedAt) {
-		if (!isLinked) {
-			GetComponent<Renderer> ().material.color = gazedAt ? Color.green : Color.red;
-			isGazedAt = gazedAt;
+		if (!isLinked && isGazedAt != gazedAt) {
+			if (gazedAt) {
+				makeGreen ();
+			} else {
+				makeRed ();
+			}
+		}
+		isGazedAt = gazedAt;
+	}
+
+	public void makeGreen() {
+		GetComponent<Renderer> ().material.color = Color.green;
+	}
+
+	public void makeRed() {
+		GetComponent<Renderer> ().material.color = Color.red;
+	}
+
+	public void makeBlue() {
+		GetComponent<Renderer> ().material.color = Color.blue;
+	}
+
+	public void SetLinked(bool linked) {
+		if(isLinked != linked) {
+			if (linked) {
+				makeBlue ();
+			} else if (isGazedAt) {
+				makeGreen ();
+			} else {
+				makeRed();
+			}
+			isLinked = linked;
 		}
 	}
 
@@ -55,12 +77,10 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	#endregion
 
 	private void createLink() {
-		isLinked = true;
-		GetComponent<Renderer> ().material.color = Color.blue;
+		SetLinked (playerController.Link(gameObject));
 	}
 
 	private void destroyLink() {
-		isLinked = false;
-		SetGazedAt (isGazedAt);
+		playerController.Unlink ();
 	}
 }
