@@ -9,13 +9,17 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	private bool isLinked;
 	private bool isGazedAt;
 
-	void Start() {
-		SetGazedAt(false);
-		SetLinked (false);
-		playerController = player.GetComponent<PlayerController> ();
+	void Awake() {
+		Initialize ();
 	}
 
 	public void Update() {
+	}
+
+	public void Initialize() {
+		SetGazedAt(false);
+		SetLinked (false);
+		playerController = player.GetComponent<PlayerController> ();
 	}
 
 	public void SetGazedAt(bool gazedAt) {
