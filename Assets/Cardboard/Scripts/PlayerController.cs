@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 		isLinked = false;
 		linkedTarget = null;
 		rb = GetComponent<Rigidbody> ();
+		Physics.gravity = new Vector3(0, -0.2F, 0);
 	}
 
 	public void NewTarget(GameObject target) {
@@ -37,9 +38,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		if (isLinked) {
 			Vector3 velocityAdd = (linkedTarget.transform.position - transform.position).normalized / 50;
-			if (velocityAdd.y > 0f) {
-				velocityAdd.y += .2f;
-			}
+			//if (velocityAdd.y > 0f) {
+				//velocityAdd.y += .3f;
+			//}
 			rb.velocity += velocityAdd;
 		}
 	}
