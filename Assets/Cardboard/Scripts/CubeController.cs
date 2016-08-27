@@ -23,14 +23,14 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	}
 
 	public void SetGazedAt(bool gazedAt) {
-		if (!isLinked && isGazedAt != gazedAt) {
+		isGazedAt = gazedAt;
+		if (!isLinked) {
 			if (gazedAt) {
 				makeGreen ();
 			} else {
 				makeRed ();
 			}
 		}
-		isGazedAt = gazedAt;
 	}
 
 	public void makeGreen() {
@@ -46,15 +46,13 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	}
 
 	public void SetLinked(bool linked) {
-		if(isLinked != linked) {
-			if (linked) {
-				makeBlue ();
-			} else if (isGazedAt) {
-				makeGreen ();
-			} else {
-				makeRed();
-			}
-			isLinked = linked;
+		isLinked = linked;
+		if (linked) {
+			makeBlue ();
+		} else if (isGazedAt) {
+			makeGreen ();
+		} else {
+			makeRed();
 		}
 	}
 
@@ -75,16 +73,8 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	// Called when the Cardboard trigger is used, between OnGazeEnter
 	/// and OnGazeExit.
 	public void OnGazeTrigger() {
-		createLink ();
+		playerController.NewTarget(gameObject);
 	}
 
 	#endregion
-
-	private void createLink() {
-		SetLinked (playerController.Link(gameObject));
-	}
-
-	private void destroyLink() {
-		playerController.Unlink ();
-	}
 }

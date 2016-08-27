@@ -13,19 +13,22 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 	}
 
+	public void NewTarget(GameObject target) {
+		Unlink ();
+		Link (target);
+	}
 
-	//Returns true if link is created
-	public bool Link(GameObject target) {
-		if (!isLinked) {
-			isLinked = true;
-			linkedTarget = target;
-			return true;
-		} else {
-			return false;
-		}
+	//Always links or unlinks - bad code
+	public void Link(GameObject target) {
+		linkedTarget = target;
+		linkedTarget.GetComponent<CubeController> ().SetLinked (true);
+		isLinked = true;
 	}
 
 	public void Unlink() {
+		if (isLinked) {
+			linkedTarget.GetComponent<CubeController> ().SetLinked (false);
+		}
 		isLinked = false;
 		linkedTarget = null;
 	}
@@ -33,9 +36,9 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isLinked) {
-			Vector3 velocityAdd = (linkedTarget.transform.position - transform.position).normalized / 10;
-			if (velocityAdd.y > 0) {
-				velocityAdd.y += .5f;
+			Vector3 velocityAdd = (linkedTarget.transform.position - transform.position).normalized / 50;
+			if (velocityAdd.y > 0f) {
+				velocityAdd.y += .2f;
 			}
 			rb.velocity += velocityAdd;
 		}
