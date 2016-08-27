@@ -5,9 +5,11 @@ public class GoalController : MonoBehaviour {
 
 	// Use this for initialization
 	GameObject player;
+	PlayerController playerController;
 	void Start () {
 		gameObject.transform.position = new Vector3 (2, 0, 2);
 		player = GameObject.Find ("Player");
+		playerController = player.GetComponent<PlayerController> ();
 	}
 
 	void Place() {
@@ -54,7 +56,7 @@ public class GoalController : MonoBehaviour {
 		if(other.name == "Player") {
 			Place ();
 			Handheld.Vibrate ();
-			//TODO increment score
+			playerController.Success ();
 		}
 	}
 }

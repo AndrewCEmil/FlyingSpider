@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	// Use this for initialization
+	public GameObject damageSprite;
+	public GameObject winSprite;
+	private SpriteController damageSpriteController;
+	private SpriteController winSpriteController;
 	private bool isLinked;
 	private GameObject linkedTarget;
 	private Rigidbody rb;
@@ -12,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 		linkedTarget = null;
 		rb = GetComponent<Rigidbody> ();
 		Physics.gravity = new Vector3(0, -0.2F, 0);
+		damageSpriteController = damageSprite.GetComponent<SpriteController> ();
+		winSpriteController = winSprite.GetComponent<SpriteController> ();
 	}
 
 	public void NewTarget(GameObject target) {
@@ -39,9 +44,25 @@ public class PlayerController : MonoBehaviour {
 		if (isLinked) {
 			Vector3 velocityAdd = (linkedTarget.transform.position - transform.position).normalized / 50;
 			//if (velocityAdd.y > 0f) {
-				//velocityAdd.y += .3f;
+			//velocityAdd.y += .3f;
 			//}
 			rb.velocity += velocityAdd;
+		} else {
+			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 50 || transform.position.y < 0) {
+				Reset ();
+			}
 		}
+	}
+
+	void Reset() {
+		rb.velocity = new Vector3 (0, 0, 0);
+		transform.position = new Vector3 (0, .5f, 0);
+		damageSpriteController.Flash ();
+		Handheld.Vibrate ();
+	}
+
+	public void Success() {
+		//TODO score?
+		winSpriteController.Flash();
 	}
 }
