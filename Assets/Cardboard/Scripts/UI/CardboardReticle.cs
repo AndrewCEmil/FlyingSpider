@@ -28,6 +28,8 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   // Private members
   private Material materialComp;
   private GameObject targetObj;
+  private GameObject player;
+  private PlayerController playerController;
 
   // Current inner angle of the reticle (in degrees).
   private float reticleInnerAngle = 0.0f;
@@ -58,6 +60,8 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
     CreateReticleVertices();
 
     materialComp = gameObject.GetComponent<Renderer>().material;
+		player = GameObject.Find ("Player");
+		playerController = player.GetComponent < PlayerController> ();
   }
 
   void OnEnable() {
@@ -79,7 +83,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
 
   }
 
-  /// This is called when the 'BaseInputModule' system should be disabled.
+  /// This is called when the 'BaseInputModule' system should be disabjled.
   public void OnGazeDisabled() {
 
   }
@@ -129,6 +133,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   /// the user releases the trigger.
   public void OnGazeTriggerEnd(Camera camera) {
     // Put your reticle trigger end logic here :)
+		playerController.Unlink();
   }
 
   public void GetPointerRadius(out float innerRadius, out float outerRadius) {
