@@ -4,18 +4,26 @@ using System.Collections;
 public class GoalController : MonoBehaviour {
 
 	// Use this for initialization
+	GameObject player;
 	void Start () {
-		Place ();
+		gameObject.transform.position = new Vector3 (2, 0, 2);
+		player = GameObject.Find ("Player");
 	}
 
 	void Place() {
 		gameObject.transform.position = GenerateNewPosition ();
 	}
 
+	Vector3[] GetPositions() {
+		Vector3[] wellPositions = GetWellPositions();
+		wellPositions [0] = player.transform.position;
+		return wellPositions;
+	}
+
 	Vector3[] GetWellPositions() {
 		GameObject[] wells = GameObject.FindGameObjectsWithTag ("Well");
-		Vector3[] positions = new Vector3[wells.Length];
-		for (int i = 0; i < wells.Length; i++) {
+		Vector3[] positions = new Vector3[wells.Length + 1];
+		for (int i = 1; i < wells.Length + 1; i++) {
 			positions [i] = wells [i].transform.position;
 		}
 		return positions;
@@ -33,7 +41,7 @@ public class GoalController : MonoBehaviour {
 	}
 
 	private Vector3 GenerateNewPosition() {
-		Vector3 pos = Random.insideUnitSphere * 20.0f;
+		Vector3 pos = Random.insideUnitSphere * 15.0f;
 		pos.y = Mathf.Abs(pos.y);
 		if (GetNearestWellDistance (pos) < 10) {
 			return GenerateNewPosition ();
@@ -43,8 +51,8 @@ public class GoalController : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other) {
-		if(other.CompareTag("Player")) {
-			GenerateNewPosition ();
+		if(other.name == "Player") {
+			Place ();
 			Handheld.Vibrate ();
 			//TODO increment score
 		}
