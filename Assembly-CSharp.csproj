@@ -62,10 +62,10 @@
      <Compile Include="Assets\Cardboard\Scripts\CubeCreator.cs" />
      <Compile Include="Assets\Cardboard\Scripts\GazeInputModule.cs" />
      <Compile Include="Assets\Cardboard\Scripts\GoalController.cs" />
+     <Compile Include="Assets\Cardboard\Scripts\MenuController.cs" />
      <Compile Include="Assets\Cardboard\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Cardboard\Scripts\Pose3D.cs" />
      <Compile Include="Assets\Cardboard\Scripts\SpriteController.cs" />
-     <Compile Include="Assets\Cardboard\Scripts\StartMenuController.cs" />
      <Compile Include="Assets\Cardboard\Scripts\StereoController.cs" />
      <Compile Include="Assets\Cardboard\Scripts\StereoRenderEffect.cs" />
      <Compile Include="Assets\Cardboard\Scripts\UI\CardboardGaze.cs" />

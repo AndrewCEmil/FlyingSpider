@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartMenuController : MonoBehaviour {
+public class MenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -19,5 +19,9 @@ public class StartMenuController : MonoBehaviour {
 
 	public void LoadSettings() {
 		Application.LoadLevel ("SettingsScene");
+	}
+
+	public void LoadStart() {
+		Application.LoadLevel ("StartScene");
 	}
 }
