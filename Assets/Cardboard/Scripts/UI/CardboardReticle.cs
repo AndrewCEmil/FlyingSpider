@@ -61,7 +61,9 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
 
     materialComp = gameObject.GetComponent<Renderer>().material;
 		player = GameObject.Find ("Player");
-		playerController = player.GetComponent < PlayerController> ();
+		if (player != null) {
+			playerController = player.GetComponent < PlayerController> ();
+		}
   }
 
   void OnEnable() {
@@ -133,7 +135,9 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   /// the user releases the trigger.
   public void OnGazeTriggerEnd(Camera camera) {
     // Put your reticle trigger end logic here :)
-		playerController.Unlink();
+		if (playerController != null) {
+			playerController.Unlink ();
+		}
   }
 
   public void GetPointerRadius(out float innerRadius, out float outerRadius) {
