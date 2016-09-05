@@ -6,10 +6,12 @@ public class GoalController : MonoBehaviour {
 	// Use this for initialization
 	GameObject player;
 	PlayerController playerController;
+	private bool isColliding;
 	void Start () {
 		gameObject.transform.position = new Vector3 (2, 0, 2);
 		player = GameObject.Find ("Player");
 		playerController = player.GetComponent<PlayerController> ();
+		isColliding = false;
 	}
 
 	void Place() {
@@ -22,11 +24,14 @@ public class GoalController : MonoBehaviour {
 		return wellPositions;
 	}
 
+	void Update () {
+		isColliding = false;
+	}
 	Vector3[] GetWellPositions() {
 		GameObject[] wells = GameObject.FindGameObjectsWithTag ("Well");
 		Vector3[] positions = new Vector3[wells.Length + 1];
 		for (int i = 1; i < wells.Length + 1; i++) {
-			positions [i] = wells [i].transform.position;
+			positions [i] = wells [i - 1].transform.position;
 		}
 		return positions;
 	}
@@ -53,10 +58,11 @@ public class GoalController : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other) {
-		if(other.name == "Player") {
+		if(other.name == "Player" && !isColliding) {
 			Place ();
 			Handheld.Vibrate ();
 			playerController.Success ();
 		}
+		isColliding = true;
 	}
 }
