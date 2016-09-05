@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour {
 		winSpriteController = winSprite.GetComponent<SpriteController> ();
 		GameObject levelObject = GameObject.Find ("LevelObject");
 		levelController = levelObject.GetComponent<LevelController> ();
-//		PlayerPrefs.DeleteAll ();
+		//PlayerPrefs.DeleteAll ();
 		LoadCurrentLevel ();
+		Physics.bounceThreshold = 0;
 	}
 
 	public void NewTarget(GameObject target) {
@@ -81,6 +82,10 @@ public class PlayerController : MonoBehaviour {
 
 	void LoadCurrentLevel() {
 		int currentLevel = PlayerPrefs.GetInt ("CurrentLevel");
+		if (currentLevel < 1 || currentLevel > LevelProvider.GetLevels().Length) {
+			PlayerPrefs.SetInt ("CurrentLevel", 1);
+			currentLevel = 1;
+		}
 		levelController.LoadLevel (LevelProvider.GetLevel (currentLevel));
 	}
 

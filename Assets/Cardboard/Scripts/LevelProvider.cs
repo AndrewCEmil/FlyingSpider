@@ -14,7 +14,7 @@ public class LevelProvider : MonoBehaviour {
 
 	public static Level GetLevel(int level) {
 		if (level == 0) {
-			return LevelZero ();
+			return LevelOne ();
 		} if (level == 1) {
 			return LevelOne ();
 		} else if (level == 2) {
