@@ -5,6 +5,8 @@ using System.Collections;
 public class LevelsController : MonoBehaviour {
 
 	public GameObject baseSelector;
+	static float theta = Mathf.PI / 6.0f;
+	static float radius = 5f;
 	void Start () {
 		GenerateSelectors ();
 	}
@@ -25,6 +27,7 @@ public class LevelsController : MonoBehaviour {
 	void GenerateSelector(Level level) {
 		GameObject newSelector = Instantiate (baseSelector);
 		newSelector.transform.position = GetPosition (level.level);
+		newSelector.transform.Rotate (new Vector3 (0f, GetRotation (level.level), 0f));
 		Text text = newSelector.GetComponentInChildren<Text> ();
 		text.text = level.name;
 		Button button = newSelector.GetComponentInChildren<Button> ();
@@ -32,6 +35,12 @@ public class LevelsController : MonoBehaviour {
 	}
 
 	Vector3 GetPosition(int level) {
-		return new Vector3 (2 * level, 2, 5);
+		float adjacent = Mathf.Cos (((float)level) * theta) * radius;
+		float opposite = Mathf.Sin (((float)level) * theta) * radius;
+		return new Vector3 (opposite, 2, adjacent);
+	}
+
+	float GetRotation(int level) {
+		return ((float)level) * theta * 360f / (Mathf.PI * 2f);
 	}
 }
