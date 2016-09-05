@@ -24,4 +24,8 @@ public class MenuController : MonoBehaviour {
 	public void LoadStart() {
 		Application.LoadLevel ("StartScene");
 	}
+
+	public void LoadLevelSelection() {
+		Application.LoadLevel ("LevelScene");
+	}
 }

@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour {
 		winSpriteController = winSprite.GetComponent<SpriteController> ();
 		GameObject levelObject = GameObject.Find ("LevelObject");
 		levelController = levelObject.GetComponent<LevelController> ();
-		PlayerPrefs.DeleteAll ();
-		LoadNextLevel ();
+//		PlayerPrefs.DeleteAll ();
+		LoadCurrentLevel ();
 	}
 
 	public void NewTarget(GameObject target) {
@@ -79,11 +79,15 @@ public class PlayerController : MonoBehaviour {
 		LoadNextLevel ();
 	}
 
+	void LoadCurrentLevel() {
+		int currentLevel = PlayerPrefs.GetInt ("CurrentLevel");
+		levelController.LoadLevel (LevelProvider.GetLevel (currentLevel));
+	}
+
 	void LoadNextLevel() {
 		int nextLevel = PlayerPrefs.GetInt ("CurrentLevel");
-		nextLevel++;
-		levelController.LoadLevel (LevelProvider.GetLevel (nextLevel));
-		PlayerPrefs.SetInt ("CurrentLevel", nextLevel);
+		PlayerPrefs.SetInt ("CurrentLevel", nextLevel + 1);
 		PlayerPrefs.Save ();
+		LoadCurrentLevel ();
 	}
 }

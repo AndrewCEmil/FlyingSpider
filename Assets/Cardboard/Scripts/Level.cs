@@ -7,4 +7,6 @@ public class Level : MonoBehaviour {
 	public Vector3 sunPosition;
 	public Vector3 playerPosition;
 	public int level;
+	public string name;
+	//TODO image?
 }
