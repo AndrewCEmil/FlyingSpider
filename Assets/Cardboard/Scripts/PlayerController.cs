@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject damageSprite;
 	public GameObject winSprite;
+	public ParticleSystem beam;
 	private SpriteController damageSpriteController;
 	private SpriteController winSpriteController;
 	private bool isLinked;
@@ -30,12 +31,19 @@ public class PlayerController : MonoBehaviour {
 		Link (target);
 	}
 
-	//Always links or unlinks - bad code
 	public void Link(GameObject target) {
 		linkedTarget = target;
 		linkedTarget.GetComponent<CubeController> ().SetLinked (true);
+		beam.maxParticles = 100;
 		isLinked = true;
 	}
+
+	public void PointParticles(GameObject target) {
+		float distance = Vector3.Distance (transform.position, target.transform.position);
+		beam.startLifetime = distance / beam.startSpeed;
+		beam.transform.LookAt (target.transform.position);
+	}
+
 
 	public void Unlink() {
 		if (isLinked) {
@@ -43,6 +51,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		isLinked = false;
 		linkedTarget = null;
+		beam.maxParticles = 0;
 	}
 
 	// Update is called once per frame
@@ -50,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 		if (isLinked) {
 			Vector3 velocityAdd = (linkedTarget.transform.position - transform.position).normalized / 50;
 			rb.velocity += velocityAdd;
+			PointParticles (linkedTarget);
 		} else {
 			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 50 || transform.position.y < 0) {
 				Reset ();
