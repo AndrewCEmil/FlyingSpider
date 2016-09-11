@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void PointParticles(GameObject target) {
-		float distance = Vector3.Distance (transform.position, target.transform.position);
-		beam.startLifetime = distance / beam.startSpeed - 1;
+		float distance = Vector3.Distance (transform.position, target.transform.position) - 1f;
+		beam.startLifetime = distance / beam.startSpeed;
 		beam.transform.LookAt (target.transform.position);
 	}
 
