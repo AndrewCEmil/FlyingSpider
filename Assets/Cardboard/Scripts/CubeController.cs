@@ -8,6 +8,8 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	private PlayerController playerController;
 	private bool isLinked;
 	private bool isGazedAt;
+	private ParticleSystem particles;
+	private ParticleSystem.ColorOverLifetimeModule col;
 
 	void Awake() {
 		Initialize ();
@@ -17,9 +19,11 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 	}
 
 	public void Initialize() {
+		particles = GetComponentInChildren<ParticleSystem> ();
+		col = particles.colorOverLifetime;
+		playerController = player.GetComponent<PlayerController> ();
 		SetGazedAt(false);
 		SetLinked (false);
-		playerController = player.GetComponent<PlayerController> ();
 	}
 
 	public void SetGazedAt(bool gazedAt) {
@@ -35,14 +39,17 @@ public class CubeController : MonoBehaviour, ICardboardGazeResponder {
 
 	public void makeGreen() {
 		GetComponent<Renderer> ().material.color = Color.green;
+		col.color = new ParticleSystem.MinMaxGradient (Color.green, Color.white);
 	}
 
 	public void makeRed() {
 		GetComponent<Renderer> ().material.color = Color.red;
+		col.color = new ParticleSystem.MinMaxGradient (Color.red, Color.white);
 	}
 
 	public void makeBlue() {
 		GetComponent<Renderer> ().material.color = Color.blue;
+		col.color = new ParticleSystem.MinMaxGradient (Color.blue, Color.white);
 	}
 
 	public void SetLinked(bool linked) {
