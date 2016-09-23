@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void Link(GameObject target) {
 		linkedTarget = target;
-		linkedTarget.GetComponent<CubeController> ().SetLinked (true);
+		linkedTarget.GetComponent<SphereController> ().SetLinked (true);
 		beam.maxParticles = 100;
 		isLinked = true;
 	}
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void Unlink() {
 		if (isLinked) {
-			linkedTarget.GetComponent<CubeController> ().SetLinked (false);
+			linkedTarget.GetComponent<SphereController> ().SetLinked (false);
 		}
 		isLinked = false;
 		linkedTarget = null;
@@ -80,8 +80,7 @@ public class PlayerController : MonoBehaviour {
 
 	//Used to clear links on new level
 	public void Clear() {
-		isLinked = false;
-		linkedTarget = null;
+		Unlink ();
 	}
 
 	public void Success() {
