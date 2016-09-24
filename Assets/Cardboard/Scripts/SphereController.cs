@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Collider))]
-public class CubeController : MonoBehaviour, ICardboardGazeResponder {
+public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	public GameObject player;
 
 	private PlayerController playerController;
