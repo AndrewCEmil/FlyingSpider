@@ -36,7 +36,7 @@ public class LevelProvider : MonoBehaviour {
 		positions [4] = new Vector3 (2, 2, 2);
 		Level level = new Level ();
 		level.objects = positions;
-		level.playerPosition = new Vector3 (0, 0, 0);
+		level.playerPosition = new Vector3 (0, 0.5f, 0);
 		level.sunPosition = new Vector3 (2, 0, 2);
 		level.name = "ONE";
 		level.level = 1;
@@ -51,7 +51,7 @@ public class LevelProvider : MonoBehaviour {
 		positions [3] = new Vector3 (10, 10, -10);
 		Level level = new Level ();
 		level.objects = positions;
-		level.playerPosition = new Vector3 (0, 0, 0);
+		level.playerPosition = new Vector3 (0, 0.5f, 0);
 		level.sunPosition = new Vector3 (0, 5, 0);
 		level.name = "TWO";
 		level.level = 2;
