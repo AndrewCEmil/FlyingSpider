@@ -1,7 +1,31 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class LevelProvider : MonoBehaviour {
+
+	public static Dictionary<int,bool> GetLevelLocks() {
+		string levelLocksJson = PlayerPrefs.GetString ("levelLocks");
+		if (levelLocksJson.Equals ("")) {
+			InitLevelLocks ();
+		}
+		Dictionary<int,bool> levelLocks = JsonUtility.FromJson<Dictionary<int,bool>>(levelLocksJson);
+		return levelLocks;
+	}
+
+	public static void SetLevelLocks(Dictionary<int, bool> levelLocks) {
+		PlayerPrefs.SetString ("levelLocks", JsonUtility.ToJson (levelLocks));
+	}
+
+	public static string InitLevelLocks() {
+		Dictionary<int, bool> lockLevels = new Dictionary<int,bool> ();
+		for (int i = 1; i <= NumLevels (); i++) {
+			lockLevels [i] = false;
+		}
+		lockLevels [1] = true;
+		SetLevelLocks (lockLevels);
+		return JsonUtility.ToJson (lockLevels);
+	}
 
 	public static Level[] GetLevels() {
 		Level[] levels = new Level[NumLevels ()];

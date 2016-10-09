@@ -38,18 +38,21 @@ public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	}
 
 	public void makeGreen() {
-		GetComponent<Renderer> ().material.color = Color.green;
-		col.color = new ParticleSystem.MinMaxGradient (Color.green, Color.white);
+		Color targetColor = new Color (.769f, .954f, 1.00f);
+		GetComponent<Renderer> ().material.color = targetColor;
+		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
 	}
 
 	public void makeRed() {
-		GetComponent<Renderer> ().material.color = Color.red;
-		col.color = new ParticleSystem.MinMaxGradient (Color.red, Color.white);
+		Color targetColor = new Color (.750f, .276f, .297f);
+		GetComponent<Renderer> ().material.color = targetColor;
+		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
 	}
 
 	public void makeBlue() {
-		GetComponent<Renderer> ().material.color = Color.blue;
-		col.color = new ParticleSystem.MinMaxGradient (Color.blue, Color.white);
+		Color targetColor = new Color (.094f, .432f, .675f);
+		GetComponent<Renderer> ().material.color = targetColor;
+		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
 	}
 
 	public void SetLinked(bool linked) {
