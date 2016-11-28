@@ -17,6 +17,11 @@ public class LevelProvider : MonoBehaviour {
 		PlayerPrefs.SetString ("levelLocks", JsonUtility.ToJson (levelLocks));
 	}
 
+	public static void OpenLevelLock (int level) {
+		Dictionary<int, bool> levelLocks = GetLevelLocks ();
+		levelLocks [level] = true;
+	}
+
 	public static string InitLevelLocks() {
 		Dictionary<int, bool> lockLevels = new Dictionary<int,bool> ();
 		for (int i = 1; i <= NumLevels (); i++) {
@@ -25,6 +30,10 @@ public class LevelProvider : MonoBehaviour {
 		lockLevels [1] = true;
 		SetLevelLocks (lockLevels);
 		return JsonUtility.ToJson (lockLevels);
+	}
+
+	public static bool IsLevelLocked(int level) {
+		return GetLevelLocks () [level];
 	}
 
 	public static Level[] GetLevels() {
@@ -64,6 +73,7 @@ public class LevelProvider : MonoBehaviour {
 		level.sunPosition = new Vector3 (2, 0, 2);
 		level.name = "ONE";
 		level.level = 1;
+		level.locked = IsLevelLocked (level.level);
 		return level;
 	}
 
@@ -79,6 +89,7 @@ public class LevelProvider : MonoBehaviour {
 		level.sunPosition = new Vector3 (0, 5, 0);
 		level.name = "TWO";
 		level.level = 2;
+		level.locked = IsLevelLocked (level.level);
 		return level;
 	}
 

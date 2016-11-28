@@ -99,8 +99,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void LoadNextLevel() {
-		int nextLevel = PlayerPrefs.GetInt ("CurrentLevel");
-		PlayerPrefs.SetInt ("CurrentLevel", nextLevel + 1);
+		int nextLevel = PlayerPrefs.GetInt ("CurrentLevel") + 1;
+		PlayerPrefs.SetInt ("CurrentLevel", nextLevel);
+		LevelProvider.OpenLevelLock (nextLevel);
 		PlayerPrefs.Save ();
 		LoadCurrentLevel ();
 	}

@@ -8,5 +8,6 @@ public class Level : MonoBehaviour {
 	public Vector3 playerPosition;
 	public int level;
 	public string name;
+	public bool locked;
 	//TODO image?
 }
