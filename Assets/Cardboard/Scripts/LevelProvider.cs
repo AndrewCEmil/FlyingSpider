@@ -4,36 +4,42 @@ using System.Collections;
 
 public class LevelProvider : MonoBehaviour {
 
-	public static Dictionary<int,bool> GetLevelLocks() {
-		string levelLocksJson = PlayerPrefs.GetString ("levelLocks");
-		if (levelLocksJson.Equals ("")) {
+	public static List<int> GetLevelLocks() {
+		string levelLocksJson = PlayerPrefs.GetString ("LevelLocks");
+		if (levelLocksJson.Equals ("") || levelLocksJson.Equals("{}")) {
 			InitLevelLocks ();
+			levelLocksJson = PlayerPrefs.GetString ("LevelLocks");
 		}
-		Dictionary<int,bool> levelLocks = JsonUtility.FromJson<Dictionary<int,bool>>(levelLocksJson);
-		return levelLocks;
+		LevelLocks levelLocks = JsonUtility.FromJson<LevelLocks>(levelLocksJson);
+		return levelLocks.levelLocks;
 	}
 
-	public static void SetLevelLocks(Dictionary<int, bool> levelLocks) {
-		PlayerPrefs.SetString ("levelLocks", JsonUtility.ToJson (levelLocks));
+	public static void SetLevelLocks(List<int> levelLocks) {
+		LevelLocks lls = new LevelLocks ();
+		lls.levelLocks = levelLocks;
+		string levelLocksJson = JsonUtility.ToJson (lls);
+		PlayerPrefs.SetString ("LevelLocks", levelLocksJson);
+		string compare = PlayerPrefs.GetString ("LevelLocks");
+		PlayerPrefs.Save ();
 	}
 
 	public static void OpenLevelLock (int level) {
-		Dictionary<int, bool> levelLocks = GetLevelLocks ();
-		levelLocks [level] = true;
+		List<int> levelLocks = GetLevelLocks ();
+		if (!levelLocks.Contains (level)) {
+			levelLocks.Add (level);
+		}
+		SetLevelLocks (levelLocks);
 	}
 
 	public static string InitLevelLocks() {
-		Dictionary<int, bool> lockLevels = new Dictionary<int,bool> ();
-		for (int i = 1; i <= NumLevels (); i++) {
-			lockLevels [i] = false;
-		}
-		lockLevels [1] = true;
-		SetLevelLocks (lockLevels);
-		return JsonUtility.ToJson (lockLevels);
+		List<int> levelLocks = new List<int> ();
+		levelLocks.Add (1);
+		SetLevelLocks (levelLocks);
+		return JsonUtility.ToJson (levelLocks);
 	}
 
 	public static bool IsLevelLocked(int level) {
-		return GetLevelLocks () [level];
+		return !GetLevelLocks ().Contains (level);
 	}
 
 	public static Level[] GetLevels() {

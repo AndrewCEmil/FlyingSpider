@@ -31,7 +31,13 @@ public class LevelsController : MonoBehaviour {
 		Text text = newSelector.GetComponentInChildren<Text> ();
 		text.text = level.name;
 		Button button = newSelector.GetComponentInChildren<Button> ();
-		button.onClick.AddListener(() => { HandleLevelSelection(level.level); });
+		if (!level.locked) {
+			button.onClick.AddListener (() => {
+				HandleLevelSelection (level.level);
+			});
+		} else {
+			button.interactable = false;
+		}
 	}
 
 	Vector3 GetPosition(int level) {
