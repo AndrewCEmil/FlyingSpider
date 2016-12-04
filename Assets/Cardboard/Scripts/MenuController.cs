@@ -44,5 +44,6 @@ public class MenuController : MonoBehaviour {
 		} else {
 			PlayerPrefs.SetInt ("ParticlesOff", 1);
 		}
+		PlayerPrefs.Save ();
 	}
 }

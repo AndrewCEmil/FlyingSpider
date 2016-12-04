@@ -7,6 +7,7 @@ public class LevelController : MonoBehaviour {
 	public GameObject baseDrift;
 	public GameObject player;
 	public GameObject goal;
+	public GameObject backMenu;
 
 	public void LoadLevel(Level level) {
 		//First find all existing cubes and remove them
@@ -26,11 +27,14 @@ public class LevelController : MonoBehaviour {
 			PlaceCube (postion);
 		}
 
+		PlaceBackMenu (level.playerPosition);
+
 		if (ShouldDoDrift ()) {
 			foreach (Vector3 position in level.drifts) {
 				PlaceDrift (position);
 			}
 		}
+
 
 		//Next place the sun
 		goal.transform.position = level.sunPosition;
@@ -57,5 +61,10 @@ public class LevelController : MonoBehaviour {
 
 	private bool ShouldDoDrift() {
 		return PlayerPrefs.GetInt ("ParticlesOff") == 0;
+	}
+
+	private void PlaceBackMenu(Vector3 playerPosition) {
+		Vector3 menuPosition = new Vector3 (playerPosition.x, playerPosition.y - 3, playerPosition.z + .5f);
+		backMenu.transform.position = menuPosition;
 	}
 }

@@ -105,4 +105,8 @@ public class PlayerController : MonoBehaviour {
 		PlayerPrefs.Save ();
 		LoadCurrentLevel ();
 	}
+
+	public void BackToLevels() {
+		Application.LoadLevel("LevelScene");
+	}
 }
