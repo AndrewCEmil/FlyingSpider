@@ -32,6 +32,10 @@ public class MenuController : MonoBehaviour {
 		Application.LoadLevel ("LevelScene");
 	}
 
+	public void LoadAboutScene() {
+		Application.LoadLevel ("AboutScene");
+	}
+
 	public void SetMusicVolume() {
 		AudioSource musicPlayer = GameObject.Find ("MusicPlayer").GetComponent<AudioSource> ();
 		musicPlayer.volume = musicSlider.value;

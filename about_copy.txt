@@ -1,0 +1,7 @@
+The goal of the game is to fly into the star.  You move by linking to gravity wells.  Once linked to a gravity well you will begin to accelerate towards it.  You know you are linked when the gravity well turns green and you are shooting sparkles at it.  You can unlink by selecting another gravity well or empty space.  Once unlinked you continue to move as you were at the time you unlinked.
+
+Your position and velocity will reset if you fly too far away from the star and are unlinked to any gravity well.  There is a back button underneath you at the reset position.  If you ever need to exit once you have started, simply fly far away, get reset, and then select the back button.
+
+
+Made with love by 0xACE, I hope you enjoy!
+
