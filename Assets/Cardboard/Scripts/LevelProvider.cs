@@ -53,26 +53,88 @@ public class LevelProvider : MonoBehaviour {
 
 	public static Level GetLevel(int level) {
 		if (level == 0) {
-			return LevelOne ();
+			return Ring ();
 		} if (level == 1) {
-			return LevelOne ();
+			return Ring ();
 		} else if (level == 2) {
-			return LevelTwo ();
+			return SlingShot ();
+		} else if (level == 3) {
+			return Throwback ();
+		} else if (level == 4) {
+			return SplitShot ();
+		} else if (level == 5) {
+			return BigRing ();
 		}
 		return null;
 	}
 
 	static int NumLevels() {
-		return 2;
+		return 5;
 	}
 
-	public static Level LevelOne() {
-		Vector3[] positions = new Vector3[5];
+	public static Level SlingShot() {
+		Vector3[] positions = new Vector3[1];
+		positions [0] = new Vector3 (0, 2, 5);
+		Vector3[] drifts = new Vector3[4];
+		drifts [0] = new Vector3 (10, 0, 1);
+		drifts [1] = new Vector3 (-10, 0, 1);
+		drifts [2] = new Vector3 (10, 0, 5);
+		drifts [3] = new Vector3 (-10, 0, 5);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.playerPosition = new Vector3 (0, 0.5f, 0);
+		level.sunPosition = new Vector3 (0, 5, 10);
+		level.name = "Slingshot";
+		level.level = 2;
+		level.locked = IsLevelLocked (level.level);
+		return level;
+	}
+
+	public static Level Throwback() {
+		Vector3[] positions = new Vector3[1];
+		positions [0] = new Vector3 (0, 5, 10);
+		Vector3[] drifts = new Vector3[4];
+		drifts [0] = new Vector3 (10, 0, 1);
+		drifts [1] = new Vector3 (-10, 0, 1);
+		drifts [2] = new Vector3 (10, 0, 5);
+		drifts [3] = new Vector3 (-10, 0, 5);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.playerPosition = new Vector3 (0, 0.5f, 0);
+		level.sunPosition = new Vector3 (0, 2, 5);
+		level.name = "Throwback";
+		level.level = 3;
+		level.locked = IsLevelLocked (level.level);
+		return level;
+	}
+
+	public static Level SplitShot() {
+		Vector3[] positions = new Vector3[2];
+		positions [0] = new Vector3 (5, 0, 5);
+		positions [1] = new Vector3 (-5, 0, 5);
+		Vector3[] drifts = new Vector3[3];
+		drifts [0] = new Vector3 (0, 10, 0);
+		drifts [0] = new Vector3 (0, -10, 0);
+		drifts [2] = new Vector3 (0, 0, 15);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.playerPosition = new Vector3 (0, 0.5f, 0);
+		level.sunPosition = new Vector3 (0, 0, 10);
+		level.name = "Splitter";
+		level.level = 4;
+		level.locked = IsLevelLocked (level.level);
+		return level;
+	}
+
+	public static Level Ring() {
+		Vector3[] positions = new Vector3[4];
 		positions [0] = new Vector3 (10, 10, 10);
 		positions [1] = new Vector3 (-10, 10, 10);
 		positions [2] = new Vector3 (-10, 10, -10);
 		positions [3] = new Vector3 (10, 10, -10);
-		positions [4] = new Vector3 (2, 2, 2);
 		Vector3[] drifts = new Vector3[5];
 		drifts [0] = new Vector3 (5, 5, 5);
 		drifts [1] = new Vector3 (15, 15, 15);
@@ -84,30 +146,30 @@ public class LevelProvider : MonoBehaviour {
 		level.drifts = drifts;
 		level.playerPosition = new Vector3 (0, 0.5f, 0);
 		level.sunPosition = new Vector3 (2, 0, 2);
-		level.name = "ONE";
+		level.name = "Ring";
 		level.level = 1;
 		level.locked = IsLevelLocked (level.level);
 		return level;
 	}
 
-	public static Level LevelTwo() {
+	public static Level BigRing() {
 		Vector3[] positions = new Vector3[4];
-		positions [0] = new Vector3 (10, 10, 10);
-		positions [1] = new Vector3 (-10, 10, 10);
-		positions [2] = new Vector3 (-10, 10, -10);
-		positions [3] = new Vector3 (10, 10, -10);
-		Vector3[] drifts = new Vector3[5];
-		drifts [0] = new Vector3 (15, 15, 15);
-		drifts [1] = new Vector3 (-15, 15, 15);
-		drifts [2] = new Vector3 (-15, 15, -15);
-		drifts [3] = new Vector3 (15, 15, -15);
+		positions [0] = new Vector3 (20, 20, 20);
+		positions [1] = new Vector3 (-20, 20, 20);
+		positions [2] = new Vector3 (-20, 20, -20);
+		positions [3] = new Vector3 (20, 20, -20);
+		Vector3[] drifts = new Vector3[4];
+		drifts [0] = new Vector3 (25, 25, 25);
+		drifts [1] = new Vector3 (-25, 25, 25);
+		drifts [2] = new Vector3 (-25, 25, -25);
+		drifts [3] = new Vector3 (25, 25, -25);
 		Level level = new Level ();
 		level.objects = positions;
 		level.drifts = drifts;
 		level.playerPosition = new Vector3 (0, 0.5f, 0);
-		level.sunPosition = new Vector3 (0, 5, 0);
-		level.name = "TWO";
-		level.level = 2;
+		level.sunPosition = new Vector3 (2, 0, 2);
+		level.name = "BigRing";
+		level.level = 5;
 		level.locked = IsLevelLocked (level.level);
 		return level;
 	}
