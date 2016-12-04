@@ -5,6 +5,7 @@ using System.Collections;
 public class MenuController : MonoBehaviour {
 
 	public Slider musicSlider;
+	public Toggle particleToggle;
 	// Use this for initialization
 	void Start () {
 	
@@ -34,5 +35,14 @@ public class MenuController : MonoBehaviour {
 	public void SetMusicVolume() {
 		AudioSource musicPlayer = GameObject.Find ("MusicPlayer").GetComponent<AudioSource> ();
 		musicPlayer.volume = musicSlider.value;
+	}
+
+	//Reversed so we default to particles on
+	public void SetParticleToggle() {
+		if (particleToggle.isOn) {
+			PlayerPrefs.SetInt ("ParticlesOff", 0);
+		} else {
+			PlayerPrefs.SetInt ("ParticlesOff", 1);
+		}
 	}
 }

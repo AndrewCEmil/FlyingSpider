@@ -26,8 +26,10 @@ public class LevelController : MonoBehaviour {
 			PlaceCube (postion);
 		}
 
-		foreach (Vector3 position in level.drifts) {
-			PlaceDrift (position);
+		if (ShouldDoDrift ()) {
+			foreach (Vector3 position in level.drifts) {
+				PlaceDrift (position);
+			}
 		}
 
 		//Next place the sun
@@ -51,5 +53,9 @@ public class LevelController : MonoBehaviour {
 		newDrift.tag = "Drift";
 		newDrift.transform.position = postion;
 		newDrift.SetActive (false);
+	}
+
+	private bool ShouldDoDrift() {
+		return PlayerPrefs.GetInt ("ParticlesOff") == 0;
 	}
 }
