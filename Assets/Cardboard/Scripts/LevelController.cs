@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelController : MonoBehaviour {
 
 	public GameObject baseCube;
+	public GameObject baseDrift;
 	public GameObject player;
 	public GameObject goal;
 
@@ -14,9 +15,19 @@ public class LevelController : MonoBehaviour {
 			Destroy (existingCube);
 		}
 
+		GameObject[] existingDrifts = GameObject.FindGameObjectsWithTag("Drift");
+		foreach (GameObject existingDrift in existingDrifts) {
+			Destroy (existingDrift);
+		}
+
+
 		//Next create all new cubes
 		foreach (Vector3 postion in level.objects) {
 			PlaceCube (postion);
+		}
+
+		foreach (Vector3 position in level.drifts) {
+			PlaceDrift (position);
 		}
 
 		//Next place the sun
@@ -33,5 +44,12 @@ public class LevelController : MonoBehaviour {
 		newTarget.tag = "Well";
 		newTarget.transform.position = position;
 		newTarget.SetActive (true);
+	}
+
+	private void PlaceDrift(Vector3 postion) {
+		GameObject newDrift = Instantiate (baseDrift);
+		newDrift.tag = "Drift";
+		newDrift.transform.position = postion;
+		newDrift.SetActive (false);
 	}
 }
