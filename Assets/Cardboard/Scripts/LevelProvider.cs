@@ -84,7 +84,7 @@ public class LevelProvider : MonoBehaviour {
 		level.objects = positions;
 		level.drifts = drifts;
 		level.playerPosition = new Vector3 (0, 0.5f, 0);
-		level.sunPosition = new Vector3 (0, 5, 10);
+		level.sunPosition = new Vector3 (10, 10, 10);
 		level.name = "Slingshot";
 		level.level = 2;
 		level.locked = IsLevelLocked (level.level);
