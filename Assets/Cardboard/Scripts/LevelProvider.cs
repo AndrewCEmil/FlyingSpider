@@ -174,6 +174,80 @@ public class LevelProvider : MonoBehaviour {
 		return level;
 	}
 
+	public static Level TopHat() {
+		Vector3[] positions = new Vector3[1];
+		positions [0] = new Vector3 (0, 10, 2);
+		Vector3 drifts = new Vector3 (2);
+		drifts [0] = new Vector3 (2, 1, 2);
+		drifts [1] = new Vector3 (-2, 1, 2);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.sunPosition = new Vector3 (0, 5, 2);
+		level.playerPosition = new Vector3(0, 0, 0);
+		level.name = "TopHat";
+		level.level = 6;
+		level.locked = IsLevelLocked(level.level);
+		return level;
+	}
+
+	public static Level Wall() {
+		Vector3[] positions = new Vector3[9];
+		positions [0] = new Vector3 (-2, -2, 10);
+		positions [1] = new Vector3 (0, -2, 10);
+		positions [2] = new Vector3 (2, -2, 10);
+		positions [3] = new Vector3 (-2, 0, 10);
+		positions [4] = new Vector3 (0, 0, 10);
+		positions [5] = new Vector3 (2, 0, 10);
+		positions [6] = new Vector3 (-2, 2, 10);
+		positions [7] = new Vector3 (0, 2, 10);
+		positions [8] = new Vector3 (2, 2, 10);
+
+		Vector3 drifts = new Vector3 (4);
+		drifts [0] = new Vector3 (3, 3, 10);
+		drifts [1] = new Vector3 (-3, 3, 10);
+		drifts [2] = new Vector3 (-3, -3, 10);
+		drifts [3] = new Vector3 (3, -3, 10);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.sunPosition = new Vector3 (0, 0, 15);
+		level.playerPosition = new Vector3(0, 0, 0);
+		level.name = "Wall";
+		level.level = 7;
+		level.locked = IsLevelLocked(level.level);
+		return level;
+	}
+
+	public static Level Backboard() {
+		Vector3[] positions = new Vector3[9];
+		positions [0] = new Vector3 (-2, -2, 15);
+		positions [1] = new Vector3 (0, -2, 15);
+		positions [2] = new Vector3 (2, -2, 15);
+		positions [3] = new Vector3 (-2, 0, 15);
+		positions [4] = new Vector3 (0, 0, 15);
+		positions [5] = new Vector3 (2, 0, 15);
+		positions [6] = new Vector3 (-2, 2, 15);
+		positions [7] = new Vector3 (0, 2, 15);
+		positions [8] = new Vector3 (2, 2, 15);
+
+		Vector3 drifts = new Vector3 (4);
+		drifts [0] = new Vector3 (3, 3, 10);
+		drifts [1] = new Vector3 (-3, 3, 10);
+		drifts [2] = new Vector3 (-3, -3, 10);
+		drifts [3] = new Vector3 (3, -3, 10);
+		Level level = new Level ();
+		level.objects = positions;
+		level.drifts = drifts;
+		level.sunPosition = new Vector3 (0, 0, 10);
+		level.playerPosition = new Vector3(0, 0, 0);
+		level.name = "Backboard";
+		level.level = 8;
+		level.locked = IsLevelLocked(level.level);
+		return level;
+	}
+
+
 	public static Level LevelZero() {
 		return null;
 	}
