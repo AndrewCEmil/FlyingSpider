@@ -177,7 +177,7 @@ public class LevelProvider : MonoBehaviour {
 	public static Level TopHat() {
 		Vector3[] positions = new Vector3[1];
 		positions [0] = new Vector3 (0, 10, 2);
-		Vector3 drifts = new Vector3 (2);
+		Vector3[] drifts = new Vector3[2];
 		drifts [0] = new Vector3 (2, 1, 2);
 		drifts [1] = new Vector3 (-2, 1, 2);
 		Level level = new Level ();
@@ -203,7 +203,7 @@ public class LevelProvider : MonoBehaviour {
 		positions [7] = new Vector3 (0, 2, 10);
 		positions [8] = new Vector3 (2, 2, 10);
 
-		Vector3 drifts = new Vector3 (4);
+		Vector3[] drifts = new Vector3[4];
 		drifts [0] = new Vector3 (3, 3, 10);
 		drifts [1] = new Vector3 (-3, 3, 10);
 		drifts [2] = new Vector3 (-3, -3, 10);
@@ -231,7 +231,7 @@ public class LevelProvider : MonoBehaviour {
 		positions [7] = new Vector3 (0, 2, 15);
 		positions [8] = new Vector3 (2, 2, 15);
 
-		Vector3 drifts = new Vector3 (4);
+		Vector3[] drifts = new Vector3[4];
 		drifts [0] = new Vector3 (3, 3, 10);
 		drifts [1] = new Vector3 (-3, 3, 10);
 		drifts [2] = new Vector3 (-3, -3, 10);

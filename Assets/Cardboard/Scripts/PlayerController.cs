@@ -61,7 +61,10 @@ public class PlayerController : MonoBehaviour {
 			rb.velocity += velocityAdd;
 			PointParticles (linkedTarget);
 		} else {
-			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 50 || transform.position.y < 0) {
+			//ensure no link is occuring
+			linkedTarget = null;
+			beam.maxParticles = 0;
+			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 50) {
 				Reset ();
 			}
 		}
