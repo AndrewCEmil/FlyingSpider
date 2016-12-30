@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 			//ensure no link is occuring
 			linkedTarget = null;
 			beam.maxParticles = 0;
-			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 50) {
+			if (Vector3.Distance (transform.position, new Vector3 (0, 0, 0)) > 150) {
 				Reset ();
 			}
 		}
