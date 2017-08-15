@@ -10,19 +10,6 @@ public class LevelController : MonoBehaviour {
 	public GameObject backMenu;
 
 	public void LoadLevel(Level level) {
-		//First find all existing cubes and remove them
-		GameObject[] existingCubes = GameObject.FindGameObjectsWithTag("Well");
-		foreach (GameObject existingCube in existingCubes) {
-			Destroy (existingCube);
-		}
-
-		GameObject[] existingDrifts = GameObject.FindGameObjectsWithTag("Drift");
-		foreach (GameObject existingDrift in existingDrifts) {
-			Destroy (existingDrift);
-		}
-
-
-		//Next create all new cubes
 		foreach (Vector3 postion in level.objects) {
 			PlaceCube (postion);
 		}
@@ -35,14 +22,9 @@ public class LevelController : MonoBehaviour {
 			}
 		}
 
-
-		//Next place the sun
 		goal.transform.position = level.sunPosition;
 
-		//Next initialize the user
 		player.transform.position = level.playerPosition;
-		player.GetComponent<Rigidbody> ().velocity = new Vector3(0, 0, 0);
-		player.GetComponent<PlayerController> ().Clear ();
 	}
 
 	private void PlaceCube(Vector3 position) {

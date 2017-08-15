@@ -29,7 +29,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   private Material materialComp;
   private GameObject targetObj;
   private GameObject player;
-  private PlayerController playerController;
+  private Orchestrator orchestrator;
 
   // Current inner angle of the reticle (in degrees).
   private float reticleInnerAngle = 0.0f;
@@ -60,9 +60,9 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
     CreateReticleVertices();
 
     materialComp = gameObject.GetComponent<Renderer>().material;
-		player = GameObject.Find ("Player");
-		if (player != null) {
-			playerController = player.GetComponent < PlayerController> ();
+		GameObject orch = GameObject.Find ("Orchestrator");
+		if (orch != null) {
+			orchestrator = orch.GetComponent < Orchestrator> ();
 		}
   }
 
@@ -135,8 +135,8 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   /// the user releases the trigger.
   public void OnGazeTriggerEnd(Camera camera) {
     // Put your reticle trigger end logic here :)
-		if (playerController != null) {
-			playerController.Unlink ();
+		if (orchestrator != null) {
+			orchestrator.Unlink ();
 		}
   }
 

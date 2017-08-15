@@ -5,11 +5,11 @@ using System.Collections;
 public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	public GameObject player;
 
-	private PlayerController playerController;
 	private bool isLinked;
 	private bool isGazedAt;
 	private ParticleSystem particles;
 	private ParticleSystem.ColorOverLifetimeModule col;
+	private Orchestrator orchestrator;
 
 	void Awake() {
 		Initialize ();
@@ -21,39 +21,39 @@ public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	public void Initialize() {
 		particles = GetComponentInChildren<ParticleSystem> ();
 		col = particles.colorOverLifetime;
-		playerController = player.GetComponent<PlayerController> ();
 		SetGazedAt(false);
 		SetLinked (false);
+		orchestrator = GameObject.Find ("Orchestrator").GetComponent<Orchestrator> ();
 	}
 
 	public void SetGazedAt(bool gazedAt) {
 		isGazedAt = gazedAt;
 		if (!isLinked) {
 			if (gazedAt) {
-				makeGreen ();
+				makeGazedColor ();
 			} else {
-				makeRed ();
+				makeUngazedColor ();
 			}
 		}
 	}
 
 	//TODO change function names
 	//Gazed on
-	public void makeGreen() {
+	public void makeGazedColor() {
 		Color targetColor = new Color (.914f, .00f, .310f);
 		GetComponent<Renderer> ().material.color = targetColor;
 		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
 	}
 
 	//Nothing
-	public void makeRed() {
+	public void makeUngazedColor() {
 		Color targetColor = new Color (.094f, .432f, .675f);
 		GetComponent<Renderer> ().material.color = targetColor;
 		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
 	}
 
 	//Selected
-	public void makeBlue() {
+	public void makeLinkedColor() {
 		Color targetColor = new Color (.169f, .813f, .650f);
 		GetComponent<Renderer> ().material.color = targetColor;
 		col.color = new ParticleSystem.MinMaxGradient (targetColor, Color.white);
@@ -62,11 +62,11 @@ public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	public void SetLinked(bool linked) {
 		isLinked = linked;
 		if (linked) {
-			makeBlue ();
+			makeLinkedColor ();
 		} else if (isGazedAt) {
-			makeGreen ();
+			makeGazedColor ();
 		} else {
-			makeRed();
+			makeUngazedColor();
 		}
 	}
 
@@ -87,7 +87,7 @@ public class SphereController : MonoBehaviour, ICardboardGazeResponder {
 	// Called when the Cardboard trigger is used, between OnGazeEnter
 	/// and OnGazeExit.
 	public void OnGazeTrigger() {
-		playerController.NewTarget(gameObject);
+		orchestrator.Link (gameObject);
 	}
 
 	#endregion
