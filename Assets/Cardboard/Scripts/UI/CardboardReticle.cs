@@ -28,8 +28,8 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   // Private members
   private Material materialComp;
   private GameObject targetObj;
-  private GameObject player;
   private Orchestrator orchestrator;
+  private bool gazing;
 
   // Current inner angle of the reticle (in degrees).
   private float reticleInnerAngle = 0.0f;
@@ -99,6 +99,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   public void OnGazeStart(Camera camera, GameObject targetObject, Vector3 intersectionPosition,
                           bool isInteractive) {
     SetGazeTarget(intersectionPosition, isInteractive);
+	gazing = isInteractive;
   }
 
   /// Called every frame the user is still looking at a valid GameObject. This
@@ -123,6 +124,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
     reticleDistanceInMeters = kReticleDistanceMax;
     reticleInnerAngle = kReticleMinInnerAngle;
     reticleOuterAngle = kReticleMinOuterAngle;
+	gazing = false;
   }
 
   /// Called when the Cardboard trigger is initiated. This is practically when
@@ -135,7 +137,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
   /// the user releases the trigger.
   public void OnGazeTriggerEnd(Camera camera) {
     // Put your reticle trigger end logic here :)
-		if (orchestrator != null) {
+		if (orchestrator != null && !gazing) {
 			orchestrator.Unlink ();
 		}
   }

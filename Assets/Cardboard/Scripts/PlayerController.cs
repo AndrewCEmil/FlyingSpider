@@ -14,16 +14,17 @@ public class PlayerController : MonoBehaviour {
 		Physics.gravity = new Vector3(0, -0.2F, 0);
 		Physics.bounceThreshold = 0;
 		orchestrator = GameObject.Find ("Orchestrator").GetComponent<Orchestrator> ();
+		beam.Stop ();
 	}
 
 	public void Link(GameObject target) {
 		linkedTarget = target;
-		beam.maxParticles = 100;
+		beam.Play ();
 	}
 
 	public void Unlink() {
 		linkedTarget = null;
-		beam.maxParticles = 0;
+		beam.Stop ();
 	}
 
 
