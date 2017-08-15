@@ -41,7 +41,8 @@ public class Orchestrator : MonoBehaviour {
 			Destroy (existingDrift);
 		}
 
-		//Clear player
+		//Unlink and clear player
+		Unlink();
 		player.GetComponent<Rigidbody> ().velocity = new Vector3(0, 0, 0);
 	}
 
