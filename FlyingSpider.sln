@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{670FC58E-18A5-AF5C-7C8C-5B19CCFD5667}") = "FlyingSpider", "Assembly-CSharp.csproj", "{BC5EF43F-ABC6-C0CE-69E2-1B45653912A3}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingSpider", "Assembly-CSharp.csproj", "{BC5EF43F-ABC6-C0CE-69E2-1B45653912A3}"
 EndProject
-Project("{670FC58E-18A5-AF5C-7C8C-5B19CCFD5667}") = "FlyingSpider", "Assembly-CSharp-Editor.csproj", "{8BCDF946-E225-2D54-B531-90E92C3F8774}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyingSpider", "Assembly-CSharp-Editor.csproj", "{8BCDF946-E225-2D54-B531-90E92C3F8774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -197,7 +197,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardGazePointer {
     mesh.vertices = vertices;
     mesh.triangles = indices;
     mesh.RecalculateBounds();
-    mesh.Optimize();
+    ;
   }
 
   private void UpdateDiameters() {
