@@ -5,7 +5,6 @@ using UnityEngine;
 public class Orchestrator : MonoBehaviour {
 
 	public GameObject player;
-	public GameObject Goal;
 	private LevelController levelController;
 	private GameObject linkedSphere;
 	private PlayerController playerController;
